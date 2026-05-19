@@ -4,6 +4,7 @@ from agent.state import AgentState
 from langchain_openrouter import ChatOpenRouter
 from dotenv import load_dotenv
 load_dotenv()
+import streamlit as st
 
 # Define a constant for maximum retries until correct sql query is generated.
 MAX_RETRIES = 3 
@@ -15,9 +16,11 @@ MAX_RETRIES = 3
  #   )
 
 def get_llm():
+    api_key = os.getenv("OPENROUTER_API_KEY") or st.secrets.get("OPENROUTER_API_KEY")
     return ChatOpenRouter(
-        model="anthropic/claude-sonnet-4.6",
-        temperature=0
+        model="anthropic/claude-sonnet-4-5",
+        temperature=0,
+        openrouter_api_key=api_key
     )
 
 #function to log that the schema is ready and passes state along.
@@ -26,6 +29,7 @@ def schema_inspector_node(state: AgentState) -> AgentState:
     state["steps_log"].append("🔍 Inspecting database schema...")
     state["steps_log"].append("✅ Schema loaded successfully.")
     return state
+
 
 # This node takes the current state, generates a SQL query using the LLM based on the user's question and the database schema, 
 # and updates the state with the generated SQL query. It also handles retry logic if there are errors in the generated SQL.
