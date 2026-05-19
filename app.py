@@ -16,20 +16,37 @@ st.set_page_config(
 st.title("🤖 NL2SQL Agent")
 st.caption("Upload CSV files, ask questions in plain English — the agent writes and self-corrects SQL automatically.")
 
-st.divider()
-with st.expander("💡 Sample questions you can ask"):
+with st.expander("💡 Try with a sample dataset"):
     col1, col2 = st.columns(2)
     with col1:
-        st.markdown("**🚢 Titanic dataset**")
-        st.markdown("- How many passengers survived?")
-        st.markdown("- What was the average age by passenger class?")
-        st.markdown("- Which gender had a higher survival rate?")
+        st.markdown("**🚢 Titanic**")
+        if st.button("Load Titanic Dataset"):
+            import pandas as pd
+            import sqlite3
+            from utils.db import get_schema_string
+            df = pd.read_csv("sample_data/titanic.csv")
+            conn = sqlite3.connect(":memory:", check_same_thread=False)
+            df.to_sql("titanic", conn, index=False, if_exists="replace")
+            st.session_state.conn = conn
+            st.session_state.tables = {"titanic": df}
+            st.session_state.schema_info = get_schema_string(conn, {"titanic": df})
+            st.session_state.history = []
+            st.success("✅ Titanic dataset loaded!")
+
     with col2:
-        st.markdown("**🎬 Netflix dataset**")
-        st.markdown("- How many movies vs TV shows are there?")
-        st.markdown("- Which country has the most titles?")
-        st.markdown("- What are the top 5 most common genres?")
-st.divider()
+        st.markdown("**🎬 Netflix**")
+        if st.button("Load Netflix Dataset"):
+            import pandas as pd
+            import sqlite3
+            from utils.db import get_schema_string
+            df = pd.read_csv("sample_data/netflix_titles.csv")
+            conn = sqlite3.connect(":memory:", check_same_thread=False)
+            df.to_sql("netflix", conn, index=False, if_exists="replace")
+            st.session_state.conn = conn
+            st.session_state.tables = {"netflix": df}
+            st.session_state.schema_info = get_schema_string(conn, {"netflix": df})
+            st.session_state.history = []
+            st.success("✅ Netflix dataset loaded!")
 
 # session state is streamlit's way of storing data across user interactions. Here we initialize the session state variables that will hold the database connection, loaded tables, schema information, and interaction history. 
 # This allows the app to maintain state as the user uploads files and interacts with the agent.
