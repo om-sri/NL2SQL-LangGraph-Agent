@@ -1,7 +1,7 @@
 import sqlite3
 import os
 from agent.state import AgentState
-from langchain_openrouter import ChatOpenRouter
+from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
 load_dotenv()
 import streamlit as st
@@ -17,10 +17,11 @@ MAX_RETRIES = 3
 
 def get_llm():
     api_key = os.getenv("OPENROUTER_API_KEY") or st.secrets.get("OPENROUTER_API_KEY")
-    return ChatOpenRouter(
+    return ChatOpenAI(
         model="anthropic/claude-sonnet-4-5",
         temperature=0,
-        openrouter_api_key=api_key
+        api_key=api_key,
+        base_url="https://openrouter.ai/api/v1"
     )
 
 #function to log that the schema is ready and passes state along.

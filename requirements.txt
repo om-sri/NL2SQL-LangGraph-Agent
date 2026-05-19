@@ -6,3 +6,4 @@ langchain-openrouter
 streamlit
 pandas
 python-dotenv
+langchain-openai
