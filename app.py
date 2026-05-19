@@ -70,7 +70,6 @@ if "history" not in st.session_state:
 # sidebar is to upload CSV files, load them into the in-memory SQLite database, and display the schema and table previews.
 with st.sidebar:
     st.header("📂 Upload Data")
-    st.caption("💡 Try with Titanic or Netflix datasets from the sample_data folder in the GitHub repo.")
     uploaded_files = st.file_uploader(
         "Upload one or more CSV files",
         type=["csv"],
