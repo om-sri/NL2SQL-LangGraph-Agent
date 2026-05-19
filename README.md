@@ -4,6 +4,8 @@ An agentic Text-to-SQL system built with LangGraph and LangChain. Upload any CSV
 
 🚀 **Live Demo**: https://nl2sql-langgraph-agent.streamlit.app/
 
+![Demo](assets/demo.gif)
+
 ---
 
 ## What It Does
