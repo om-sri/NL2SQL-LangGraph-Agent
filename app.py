@@ -32,6 +32,10 @@ with st.expander("💡 Try with a sample dataset"):
             st.session_state.schema_info = get_schema_string(conn, {"titanic": df})
             st.session_state.history = []
             st.success("✅ Titanic dataset loaded!")
+        st.caption("Try asking:")
+        st.markdown("- How many passengers survived?")
+        st.markdown("- What was the average age by passenger class?")
+        st.markdown("- Which gender had a higher survival rate?")
 
     with col2:
         st.markdown("**🎬 Netflix**")
@@ -47,6 +51,10 @@ with st.expander("💡 Try with a sample dataset"):
             st.session_state.schema_info = get_schema_string(conn, {"netflix": df})
             st.session_state.history = []
             st.success("✅ Netflix dataset loaded!")
+        st.caption("Try asking:")
+        st.markdown("- How many movies vs TV shows are there?")
+        st.markdown("- Which country has the most titles?")
+        st.markdown("- What are the top 5 most common genres?")
 
 # session state is streamlit's way of storing data across user interactions. Here we initialize the session state variables that will hold the database connection, loaded tables, schema information, and interaction history. 
 # This allows the app to maintain state as the user uploads files and interacts with the agent.
