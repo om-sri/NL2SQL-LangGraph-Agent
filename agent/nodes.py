@@ -1,8 +1,6 @@
 import sqlite3
 import os
-from langchain_google_genai import ChatGoogleGenerativeAI
 from agent.state import AgentState
-from langchain_openai import ChatOpenAI
 from langchain_openrouter import ChatOpenRouter
 from dotenv import load_dotenv
 load_dotenv()
