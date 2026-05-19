@@ -16,6 +16,34 @@ st.set_page_config(
 st.title("🤖 NL2SQL Agent")
 st.caption("Upload CSV files, ask questions in plain English — the agent writes and self-corrects SQL automatically.")
 
+st.divider()
+st.subheader("📁 Sample Datasets")
+st.caption("No dataset? Download one of these to try the app:")
+
+col1, col2 = st.columns(2)
+
+with col1:
+    with open("sample_data/titanic.csv", "rb") as f:
+        st.download_button(
+            label="🚢 Titanic Dataset",
+            data=f,
+            file_name="titanic.csv",
+            mime="text/csv"
+        )
+    st.caption("891 rows · passenger survival data")
+
+with col2:
+    with open("sample_data/netflix_titles.csv", "rb") as f:
+        st.download_button(
+            label="🎬 Netflix Titles Dataset",
+            data=f,
+            file_name="netflix_titles.csv",
+            mime="text/csv"
+        )
+    st.caption("8,800 rows · movies and TV shows")
+
+st.divider()
+
 # session state is streamlit's way of storing data across user interactions. Here we initialize the session state variables that will hold the database connection, loaded tables, schema information, and interaction history. 
 # This allows the app to maintain state as the user uploads files and interacts with the agent.
 if "conn" not in st.session_state:
