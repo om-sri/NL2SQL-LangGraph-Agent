@@ -17,31 +17,18 @@ st.title("🤖 NL2SQL Agent")
 st.caption("Upload CSV files, ask questions in plain English — the agent writes and self-corrects SQL automatically.")
 
 st.divider()
-st.subheader("📁 Sample Datasets")
-st.caption("No dataset? Download one of these to try the app:")
-
-col1, col2 = st.columns(2)
-
-with col1:
-    with open("sample_data/titanic.csv", "rb") as f:
-        st.download_button(
-            label="🚢 Titanic Dataset",
-            data=f,
-            file_name="titanic.csv",
-            mime="text/csv"
-        )
-    st.caption("891 rows · passenger survival data")
-
-with col2:
-    with open("sample_data/netflix_titles.csv", "rb") as f:
-        st.download_button(
-            label="🎬 Netflix Titles Dataset",
-            data=f,
-            file_name="netflix_titles.csv",
-            mime="text/csv"
-        )
-    st.caption("8,800 rows · movies and TV shows")
-
+with st.expander("💡 Sample questions you can ask"):
+    col1, col2 = st.columns(2)
+    with col1:
+        st.markdown("**🚢 Titanic dataset**")
+        st.markdown("- How many passengers survived?")
+        st.markdown("- What was the average age by passenger class?")
+        st.markdown("- Which gender had a higher survival rate?")
+    with col2:
+        st.markdown("**🎬 Netflix dataset**")
+        st.markdown("- How many movies vs TV shows are there?")
+        st.markdown("- Which country has the most titles?")
+        st.markdown("- What are the top 5 most common genres?")
 st.divider()
 
 # session state is streamlit's way of storing data across user interactions. Here we initialize the session state variables that will hold the database connection, loaded tables, schema information, and interaction history. 
@@ -58,6 +45,7 @@ if "history" not in st.session_state:
 # sidebar is to upload CSV files, load them into the in-memory SQLite database, and display the schema and table previews.
 with st.sidebar:
     st.header("📂 Upload Data")
+    st.caption("💡 Try with Titanic or Netflix datasets from the sample_data folder in the GitHub repo.")
     uploaded_files = st.file_uploader(
         "Upload one or more CSV files",
         type=["csv"],
